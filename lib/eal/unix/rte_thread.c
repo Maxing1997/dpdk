@@ -369,6 +369,7 @@ int
 rte_thread_set_affinity_by_id(rte_thread_t thread_id,
 		const rte_cpuset_t *cpuset)
 {
+	//[maxing COMMENT]: 绑定cpu和线程
 	return pthread_setaffinity_np((pthread_t)thread_id.opaque_id,
 		sizeof(*cpuset), cpuset);
 }

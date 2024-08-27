@@ -64,16 +64,20 @@ eal_cpuset_socket_id(rte_cpuset_t *cpusetp)
 static void
 thread_update_affinity(rte_cpuset_t *cpusetp)
 {
+	//[maxing COMMENT]: 获取线程绑定的CPU
 	unsigned int lcore_id = rte_lcore_id();
 
 	/* store socket_id in TLS for quick access */
+	//[maxing COMMENT]: socketid存放到线程本地空间，便于快速读取
 	RTE_PER_LCORE(_socket_id) =
 		eal_cpuset_socket_id(cpusetp);
 
 	/* store cpuset in TLS for quick access */
+	//[maxing COMMENT]: cpu信息存放到cpu本地空间，便于快速读取
 	memmove(&RTE_PER_LCORE(_cpuset), cpusetp,
 		sizeof(rte_cpuset_t));
 
+	//[maxing COMMENT]: 如果不相等，就更新lcore配置
 	if (lcore_id != (unsigned)LCORE_ID_ANY) {
 		/* EAL thread will update lcore_config */
 		lcore_config[lcore_id].socket_id = RTE_PER_LCORE(_socket_id);

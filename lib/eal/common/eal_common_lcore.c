@@ -136,6 +136,7 @@ socket_id_cmp(const void *a, const void *b)
  * processors on the machine. The function will fill the cpu_info
  * structure.
  */
+//[maxing COMMENT]: 该函数主要是解析/sys/devices/system/cpu文件，获取物理及逻辑核心，并填充cpu_info信息。
 int
 rte_eal_cpu_init(void)
 {
